@@ -1,0 +1,7 @@
+[flake8] # flake8 is a linting tool
+# exclure les fichiers qu'ils doivent pas etre linté
+exclude =
+    migrations,
+    __pycache__,
+    manage.py,
+    settings.py

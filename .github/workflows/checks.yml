@@ -1,0 +1,26 @@
+---
+name: Checks
+
+# running after every push to repo
+on: [push]
+
+# Specife our jobs
+jobs:
+  # id of our job
+  test-lint:
+    name: Test and lint
+    # runner OS that will run our job
+    runs-on: ubuntu-20.04
+    # different things that run for the job
+    steps:
+      - name: Login to dokcer hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HOUSSINE }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint 
+        run: docker-compose run --rm app sh -c "flake8"
